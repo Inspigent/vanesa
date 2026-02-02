@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vanesa 💖</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Comic Sans MS', 'Segoe UI', cursive;
+      overflow: hidden;
+    }
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      max-width: 90%;
+    }
+    h1 {
+      color: #ff4d6d;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+    }
+    button {
+      padding: 15px 25px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    #yes {
+      background: #ff4d6d;
+      color: white;
+    }
+    #yes:hover { transform: scale(1.1); }
+    #no {
+      background: #ddd;
+      color: #333;
+      position: relative;
+    }
+    span.hearts {
+      position: absolute;
+      color: #ff4d6d;
+      animation: float 4s linear infinite;
+      font-size: 20px;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <h1>Vanesa 💕</h1>
+    <p>Vrei să fii Valentine‑ul meu? 🥰</p>
+    <div class="buttons">
+      <button id="yes">DA 💖</button>
+      <button id="no">NU 🙈</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const noBtn = document.getElementById('no');
+      const yesBtn = document.getElementById('yes');
+      const card = document.getElementById('card');
+
+      function moveNoButton() {
+        const maxX = window.innerWidth - noBtn.offsetWidth;
+        const maxY = window.innerHeight - noBtn.offsetHeight;
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = x + 'px';
+        noBtn.style.top = y + 'px';
+      }
+
+      noBtn.addEventListener('mouseover', moveNoButton);
+      noBtn.addEventListener('mousedown', moveNoButton);
+      noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        moveNoButton();
+      });
+
+      function showLove() {
+        card.innerHTML = `
+          <h1>Yaaay!!! 💘</h1>
+          <p>Știam eu 😍<br/>Abia aștept să fim împreună de Valentine's ❤️</p>
+        `;
+        createHearts();
+      }
+
+      yesBtn.addEventListener('click', showLove);
+      yesBtn.addEventListener('touchstart', showLove);
+
+      function createHearts() {
+        for (let i = 0; i < 25; i++) {
+          const heart = document.createElement('span');
+          heart.className = 'hearts';
+          heart.innerText = '❤️';
+          heart.style.left = Math.random() * 100 + 'vw';
+          heart.style.bottom = '-30px';
+          heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 6000);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
